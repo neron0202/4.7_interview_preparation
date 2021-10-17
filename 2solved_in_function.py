@@ -1,18 +1,24 @@
-brackets_line = '((())'
+from main import Stack
+
+brackets_line = '(((([{}]))))'
 brackets_line = list(brackets_line)
-
-
-# print(brackets_line)
+brackets_list = []
+stack_list = Stack(brackets_list)
 
 
 def create_open_brackets_list():
-    brackets_list = []
     for el in brackets_line:
         if el == '(' or el == '[' or el == '{':
-            brackets_list.append(el)
+            stack_list.push(el)
+            print("stack_list= ", stack_list)
         elif el == ')' or el == ']' or el == '}':
-            if brackets_list:
-                open_bracket = brackets_list.pop()
+            if not stack_list:
+                return f"Несбалансировано. "
+            if not el:
+                return f"Несбалансировано. "
+            if stack_list:
+                open_bracket = stack_list.pop()
+                print("open_bracket= ", open_bracket)
             else:
                 return f"Несбалансировано. el= {el}"
             if open_bracket == "(" and el == ")":
@@ -25,9 +31,9 @@ def create_open_brackets_list():
                 return f"Несбалансировано. "
             else:
                 return f"Несбалансировано. el= {el}"
-    if brackets_list:
+    if stack_list:
         return "Несбалансировано"
     return "Сбалансировано"
 
 
-print(create_open_brackets_list())
+create_open_brackets_list()
